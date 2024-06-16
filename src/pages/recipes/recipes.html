@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cocktails</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentSettings()">
+        <ion-icon name="ios-options-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar
+      [(ngModel)]="_searchInput"
+    >
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="lucky()" class="feeling-lucky">
+      <ion-thumbnail item-left>
+        <img src="assets/images/cocktails/feeling_lucky_small.png">
+      </ion-thumbnail>
+      <h2>I'm Feeling Lucky!</h2>
+    </button>
+    <template ngFor let-recipe [ngForOf]="recipesData.recipes">
+      <button
+        ion-item
+        (click)="serve(recipe)"
+        *ngIf="matchesCompexSearch(recipe) && canBeMade(recipe)"
+        class="recipe-item"
+      >
+          <ion-thumbnail item-left>
+            <img src="assets/images/cocktails/{{recipe.image}}">
+          </ion-thumbnail>
+          <h2>{{ recipe.name }}</h2>
+          <p>{{ recipesData.getRecipeDescription(recipe) }}</p>
+      </button>
+    </template>
+  </ion-list>
+
+  <!-- <ion-input type="text" [(ngModel)]="command"></ion-input>
+  <button light (click)="send(command)">Send</button> -->
+</ion-content>
